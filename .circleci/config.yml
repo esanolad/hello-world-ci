@@ -21,6 +21,15 @@ jobs:
           name: "echo an env var that is part of our project"
           command: |
             echo "the mark: " $MY_ENV_VAR
+  save_hello_world_output: 
+    docker:
+      - image: cimg/base:2022.09
+    steps:
+      - checkout
+      - run:
+          name: "save a value"
+          command: echo "God is good"
+
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
