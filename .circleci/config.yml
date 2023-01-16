@@ -34,9 +34,9 @@ jobs:
           command: mkdir -p ~/workspace
       - run:
           name: "save a value"
-          command: echo "text to output here" > ~/workspace/output.txt
+          command: echo "text to output here" > ~/output.txt
       - persist_to_workspace:
-          root: ~/workspace
+          root: ~/
           paths:
             - output.txt
 
@@ -46,10 +46,10 @@ jobs:
     steps:
       - checkout
       - attach_workspace:
-          at: ~/workspace
+          at: ~/
       - run:
           name: "save a value"
-          command: cat ~/workspace/output.txt
+          command: cat ~/output.txt
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
@@ -57,4 +57,6 @@ workflows:
   say-hello-workflow:
     jobs:
       - save_hello_world_output
-      - print_output_file
+      - print_output_file:
+          requires:
+            - save_hello_world_output
